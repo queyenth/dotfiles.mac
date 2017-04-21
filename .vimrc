@@ -4,7 +4,6 @@ if has('vim_starting')
   set all&
 endif
 
-let s:is_windows = has('win32') || has('win64')
 let s:plugins=filereadable(expand("~/.vim/autoload/plug.vim", 1))
 
 if !s:plugins
@@ -28,41 +27,28 @@ else
   Plug 'tpope/vim-endwise'
   " Marks admin
   Plug 'kshenoy/vim-signature'
-  "
-  " Snippets
-  Plug 'sirver/ultisnips'
-  Plug 'honza/vim-snippets'
-  "
-  " Browsing
-  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-  Plug 'justinmk/vim-gtfo'
-  Plug 'junegunn/fzf.vim'
-  "
+
   " Workflow
-  Plug 'wakatime/vim-wakatime'
-  Plug 'terryma/vim-multiple-cursors'
   Plug 'szw/vim-ctrlspace'
-  "
+  Plug 'rizzatti/dash.vim'
+
+  " Tmux
+  Plug 'christoomey/vim-tmux-navigator'
+  " Plug 'edkolev/tmuxline.vim'
+
   " Git
   Plug 'tpope/vim-fugitive'
   " Syntax checking
-  " Plug 'scrooloose/syntastic'
-  Plug 'w0rp/ale'
+  Plug 'scrooloose/syntastic'
 
   " Appearance
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-startify'
   Plug 'junegunn/limelight.vim'
   Plug 'junegunn/goyo.vim'
-  Plug 'godlygeek/csapprox'
-  Plug 'junegunn/rainbow_parentheses.vim'
-  Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-  Plug 'gerw/vim-HiLinkTrace'
-  Plug 'queyenth/oxeded.vim'
-  Plug 'chriskempson/base16-vim'
-  Plug 'whatyouhide/vim-gotham'
   Plug 'airblade/vim-gitgutter'
   Plug 'mhartington/oceanic-next'
+  Plug 'queyenth/oxeded.vim'
 
   " Langs
   " HTML/CSS/SCSS
@@ -72,20 +58,7 @@ else
   Plug 'cakebaker/scss-syntax.vim'
   " PHP
   Plug 'stephpy/vim-php-cs-fixer', { 'for': ['php', 'phtml'] }
-  " CoffeeScript
-  Plug 'kchmck/vim-coffee-script'
-  " C++
-  Plug 'Valloric/YouCompleteMe'
-  Plug 'octol/vim-cpp-enhanced-highlight'
-  " GLSL
-  Plug 'tikhomirov/vim-glsl'
-  " Clojure
-  Plug 'tpope/vim-fireplace'
-  Plug 'tpope/vim-leiningen'
-  Plug 'guns/vim-clojure-static'
-  Plug 'guns/vim-clojure-highlight'
-  " Rust
-  Plug 'wting/rust.vim'
+  Plug 'joonty/vdebug'
   call plug#end()
 endif
 
@@ -126,8 +99,6 @@ set wildignore=*.o,*~,*.pyc,*.sw?,*.luac,*.jar,*.stats
 let mapleader = ","
 let maplocalleader = ","
 
-" Keymap settings for changing language in vim using Ctrl+^
-set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
@@ -182,7 +153,7 @@ set ignorecase smartcase
 " To make backspace works, like it should works
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 
-" Expand tab into spaces, and set it to 2 spaces
+" Expand tab into spaces, and set it to 4 spaces
 set expandtab smarttab
 set shiftwidth=4
 set softtabstop=4
@@ -216,22 +187,18 @@ syntax enable
 set background=dark
 set t_Co=256
 
-if (has("termguicolors"))
-    set termguicolors
-endif
-
 if has("gui_running")
   set guicursor+=a:block-blinkon0
 end
 
-colorscheme OceanicNext
+colorscheme oxeded
 set guifont=Hack:h11
 
 " Useful maping
-map <C-j> <C-W>j
-map <C-h> <C-W>h
-map <C-k> <C-W>k
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-h> <C-W>h
+" map <C-k> <C-W>k
+" map <C-l> <C-W>l
 
 map <A-j> gT
 map <A-k> gt
@@ -257,11 +224,6 @@ nnoremap <silent> <Leader>q :ToggleQuickfix<CR>
 
 " PLUGINS SETUP
 " =======================================
-"
-" YouCompleteMe
-" let g:ycm_server_keep_logfiles = 1
-" let g:ycm_server_log_level = 'debug'
-
 " Limelight
 let g:limelight_conceal_ctermfg='DarkGray'
 
@@ -269,7 +231,7 @@ let g:limelight_conceal_ctermfg='DarkGray'
 set noshowmode
 let g:airline_exclude_preview = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'oceanicnext'
+let g:airline_theme = 'oxeded'
 
 " CtrlSpace settings
 let g:ctrlspace_use_tabline = 1
@@ -277,41 +239,6 @@ let g:ctrlspace_use_tabline = 1
 " Commentary
 nmap <Leader>c <Plug>CommentaryLine
 xmap <Leader>c <Plug>Commentary
-
-" delimitMate
-let delimitMate_expand_space = 1
-au FileType vim let b:delimitMate_quotes = "\' "
-
-" Fugitive
-nnoremap <Leader>gn :Git! init<CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gw :Gwrite<CR>
-nnoremap <Leader>go :Gread<CR>
-nnoremap <Leader>gR :Gremove<CR>
-nnoremap <Leader>gm :Gmove<CR>
-nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gB :Gbrowse<CR>
-nnoremap <Leader>gp :Git! push<CR>
-nnoremap <Leader>gP :Git! pull<CR>
-nnoremap <Leader>gi :Git!<space>
-nnoremap <Leader>ge :Gedit<CR>
-nnoremap <Leader>gE :Gedit<space>
-nnoremap <Leader>gl :exe quickfix"<CR>:redraw!<CR>
-nnoremap <Leader>gL :exe quickfix"<CR>:redraw!<CR>
-nnoremap <Leader>gt :!tig<CR>:redraw!<CR>
-nnoremap <Leader>gS :exe "silent !shipit"<CR>:redraw!<CR>
-nnoremap <Leader>gg :exe 'silent Ggrep -i '.input("Pattern: ").<Bar>Unite quickfix -no-quit<CR>
-nnoremap <Leader>ggm :exe 'silent Glog --grep='.input("Pattern: ")' <Bar> Unite -no-quit quickfix'<CR>
-nnoremap <Leader>ggt :exe 'solent Glog -S='.input("Pattern: ").' <Bar> Unite -no-quit quickfix'<CR>
-nnoremap <Leader>ggc :silent! Ggrep -i<Space>
-
-noremap <Leader>du :diffupdate<CR>
-if !exists(":Gdiffoff")
-  command Gdiffoff diffoff | q | Gedit
-endif
-noremap <Leader>dq :Gdiffoff<CR>
 
 " Syntastic
 nmap <silent><Leader>N :SyntasticCheck<CR>:Errors<CR>
@@ -330,6 +257,24 @@ let g:php_cs_fixer_php_path = "php"
 let g:php_cs_fixer_enable_default_mapping = 1
 let g:php_cs_fixer_dry_run = 0
 let g:php_cs_fixer_verbose = 0
+
+" Vdebug for docker
+let g:vdebug_options = {
+\    "server" : "192.168.99.100",
+\   "break_on_open" : "0",
+\}
+
+let g:vdebug_keymap = {
+\   "run" : "<Leader>/",
+\   "run_to_cursor" : "<Down>",
+\   "step_over" : "<Up>",
+\   "step_into" : "<Left>",
+\   "step_out" : "<Right>",
+\   "close" : "g",
+\   "detach" : "x",
+\   "set_breakpoint" : "<Leader>p",
+\   "eval_visual" : "<Leader>e",
+\}
 
 " }} END PLUGIN SETUP
 "
@@ -358,24 +303,5 @@ endfunction
 function! MakeDirIfNoExists(path)
   if !isdirectory(expand(a:path))
     call mkdir(expand(a:path), "p")
-  endif
-endfunction
-
-function! ToggleWrap()
-  let s:nowrap_cc_bg = [22, "#005f00"]
-  redir => s:curr_cc_hi
-  silent hi ColorColumn
-  redir END
-  let s:curr_cc_ctermbg = matchstr(s:curr_cc_hi, 'ctermbg=\zs.\{-}\s\ze\1')
-  let s:curr_cc_guibg = matchstr(s:curr_cc_hi, 'guibg=\zs.\{-}\_$\ze\1')
-  if s:curr_cc_ctermbg != s:nowrap_cc_bg[0]
-    let g:curr_cc_guibg = s:curr_cc_guibg
-  endif
-  if &textwidth == 80
-    set textwidth=0
-    exec 'hi ColorColumn ctermbg='.s:nowrap_cc_bg[0].' guibg='.s:nowrap_cc_bg[1]
-  elseif &textwidth == 0
-    set textwidth=80
-    exec 'hi ColorColumn ctermbg='.g:curr_cc_ctermbg.' guibg='.g:curr_cc_guibg
   endif
 endfunction
