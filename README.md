@@ -3,5 +3,5 @@ Dotfiles for OS X.
 
 Screenshot
 ----------
-![](https://raw.githubusercontent.com/queyenth/dotfiles/master/screenshot.png)
+![](https://raw.githubusercontent.com/queyenth/dotfiles.mac/master/screenshot.png)
 
