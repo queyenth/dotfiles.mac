@@ -31,9 +31,12 @@ else
   " Workflow
   Plug 'szw/vim-ctrlspace'
   Plug 'rizzatti/dash.vim'
+  Plug 'airblade/vim-rooter'
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
   " Tmux
   Plug 'christoomey/vim-tmux-navigator'
+  Plug 'benmills/vimux'
   " Plug 'edkolev/tmuxline.vim'
 
   " Git
@@ -233,6 +236,10 @@ let g:airline_exclude_preview = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'oxeded'
 
+" Vimux Maps
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+
 " CtrlSpace settings
 let g:ctrlspace_use_tabline = 1
 
@@ -275,6 +282,9 @@ let g:vdebug_keymap = {
 \   "set_breakpoint" : "<Leader>p",
 \   "eval_visual" : "<Leader>e",
 \}
+
+" FZF
+map <C-p> :Files<CR>
 
 " }} END PLUGIN SETUP
 "
