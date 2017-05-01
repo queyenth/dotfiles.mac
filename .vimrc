@@ -190,12 +190,13 @@ syntax enable
 set background=dark
 set t_Co=256
 
-if has("gui_running")
-  set guicursor+=a:block-blinkon0
-end
-
 colorscheme oxeded
 set guifont=Hack:h11
+if has("gui_running")
+  set guicursor+=a:block-blinkon0
+  colorscheme OceanicNext
+end
+
 
 " Useful maping
 " map <C-j> <C-W>j
