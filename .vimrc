@@ -52,6 +52,7 @@ else
   Plug 'airblade/vim-gitgutter'
   Plug 'mhartington/oceanic-next'
   Plug 'queyenth/oxeded.vim'
+  Plug 'rakr/vim-two-firewatch'
 
   " Langs
   " HTML/CSS/SCSS
@@ -62,6 +63,7 @@ else
   " PHP
   Plug 'stephpy/vim-php-cs-fixer', { 'for': ['php', 'phtml'] }
   Plug 'joonty/vdebug'
+  Plug 'shawncplus/phpcomplete.vim'
   call plug#end()
 endif
 
@@ -194,7 +196,7 @@ colorscheme oxeded
 set guifont=Hack:h11
 if has("gui_running")
   set guicursor+=a:block-blinkon0
-  colorscheme OceanicNext
+  colorscheme two-firewatch
 end
 
 
@@ -235,7 +237,11 @@ let g:limelight_conceal_ctermfg='DarkGray'
 set noshowmode
 let g:airline_exclude_preview = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'oxeded'
+if has("gui_running")
+  let g:airline_theme = 'twofirewatch'
+else
+  let g:airline_theme = 'oxeded'
+endif
 
 " Vimux Maps
 map <Leader>vp :VimuxPromptCommand<CR>
@@ -286,6 +292,11 @@ let g:vdebug_keymap = {
 
 " FZF
 map <C-p> :Files<CR>
+
+" GitGutter
+let g:gitgutter_sign_modified = '•'
+let g:gitgutter_sign_added = '❖'
+highlight GitGutterAdd guifg = '#A3E28B'
 
 " }} END PLUGIN SETUP
 "
